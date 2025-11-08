@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('promocodes', static function(Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('code');
+            $table->string('code')->unique();
             $table->timestamp('expires_at');
             $table->timestamps();
         });

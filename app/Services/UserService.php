@@ -25,7 +25,7 @@ final readonly class UserService
         try {
             return $this->userRepository->create($userDTO);
         } catch (Throwable $exception) {
-            Log::error('При создании пользователя прозошла ошибка: ' . $exception->getMessage(), [
+            Log::error('При создании пользователя произошла ошибка: ' . $exception->getMessage(), [
                 'message' => $exception->getMessage(),
                 'code' => $exception->getCode(),
                 'file' => $exception->getFile(),
@@ -43,6 +43,9 @@ final readonly class UserService
         return $this->userRepository->find($id, $relations);
     }
 
+    /**
+     * @param  array<string, string>  $relations
+     */
     public function findByEmail(string $email, array $relations = []): User
     {
         return $this->userRepository->findByEmail($email, $relations);

@@ -31,6 +31,9 @@ class ModuleServiceProvider extends ServiceProvider
         //
     }
 
+    /**
+     * @return non-empty-array<string, string>
+     */
     private function bindings(): array
     {
         return [

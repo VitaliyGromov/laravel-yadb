@@ -36,9 +36,11 @@ class LoginRequest extends FormRequest
                         'email',
                         'Не найден пользователь с таким адресом электронной почты'
                     );
+
+                    return;
                 }
 
-                if (Hash::check($this->input('password'), $user->password)) {
+                if (!Hash::check($this->input('password'), $user->password)) {
                     $validator->errors()->add(
                         'password',
                         'Проверьте правильность пароля',

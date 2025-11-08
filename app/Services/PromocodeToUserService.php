@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Services;
 
+use App\Models\PromocodeToUser;
 use App\Modules\PromocodeToUser\DTO\PromocodeToUserDTO;
 use App\Modules\PromocodeToUser\Repositories\PromocodeToUserRepositoryContract;
 
@@ -13,7 +14,7 @@ final readonly class PromocodeToUserService
         private PromocodeToUserRepositoryContract $promocodeToUserRepository,
     ) {}
 
-    public function create(PromocodeToUserDTO $dto): PromocodeToUserDTO
+    public function create(PromocodeToUserDTO $dto): PromocodeToUser
     {
         return $this->promocodeToUserRepository->create($dto);
     }

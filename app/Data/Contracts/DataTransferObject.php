@@ -6,5 +6,8 @@ namespace App\Data\Contracts;
 
 interface DataTransferObject
 {
+    /**
+     * @return non-empty-array<string, string>
+     */
     public function toArray(): array;
 }

@@ -26,7 +26,7 @@ class RegisterRequest extends FormRequest
                 $email = $this->input('email');
                 $service = app()->make(UserService::class);
 
-                if (!$service->existsByEmail($email)) {
+                if (isset($email) && $service->existsByEmail($email)) {
                     $validator->errors()->add('email', 'Пользователь с таким email уже зарегистрирован.');
                 }
             },

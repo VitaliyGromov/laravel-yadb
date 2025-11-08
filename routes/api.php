@@ -2,9 +2,20 @@
 
 declare(strict_types=1);
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\API\V1\Auth\AuthController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/user', function(Request $request) {
-    return $request->user();
-})->middleware('auth:sanctum');
+Route::prefix('v1')->group(static function() {
+    // Auth
+    Route::prefix('auth')->controller(AuthController::class)->group(static function() {
+        Route::post('/login', 'login');
+        Route::post('/register', 'register');
+        Route::post('/logout', 'logout')->middleware(['auth:sanctum']);
+    });
+
+
+    // Promocodes
+    Route::middleware(['auth:sanctum'])->prefix('promocodes')->group(static function() {
+
+    });
+});

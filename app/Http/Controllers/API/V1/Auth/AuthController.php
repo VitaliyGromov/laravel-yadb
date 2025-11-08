@@ -7,12 +7,12 @@ namespace App\Http\Controllers\API\V1\Auth;
 use App\Exceptions\CreateUserException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\API\V1\Auth\LoginRequest;
-use App\Http\Requests\API\V1\Auth\LogoutRequest;
 use App\Http\Requests\API\V1\Auth\RegisterRequest;
 use App\Modules\User\DTO\UserDTO;
 use App\Services\Managers\Auth\AuthManager;
 use App\Services\Managers\Auth\Data\LoginDTO;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Throwable;
 
@@ -28,11 +28,11 @@ final class AuthController extends Controller
      */
     public function register(RegisterRequest $request): JsonResponse
     {
-        $validated = $request->validated();
+        $request->validated();
         $userDTO = new UserDTO(
-            $validated['name'],
-            $validated['email'],
-            $validated['password'],
+            $request->string('name')->toString(),
+            $request->string('email')->toString(),
+            $request->string('password')->toString(),
         );
 
         return new JsonResponse([
@@ -45,10 +45,10 @@ final class AuthController extends Controller
      */
     public function login(LoginRequest $request): JsonResponse
     {
-        $validated = $request->validated();
+        $request->validated();
         $dto = new LoginDTO(
-            $validated['email'],
-            $validated['password'],
+            $request->string('email')->toString(),
+            $request->string('password')->toString(),
         );
 
         return new JsonResponse([
@@ -59,10 +59,10 @@ final class AuthController extends Controller
     /**
      * @throws Throwable
      */
-    public function logout(LogoutRequest $request): Response
+    public function logout(Request $request): Response
     {
         $this->authManager->logoutUser(
-            $request->validated('user_id')
+            $request->user()->getAuthIdentifier(),
         );
 
         return response()->noContent();

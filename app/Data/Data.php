@@ -10,6 +10,9 @@ use ReflectionProperty;
 
 abstract class Data implements DataTransferObject
 {
+    /**
+     * @return non-empty-array<string, mixed>
+     */
     public function toArray(): array
     {
         $result = [];
